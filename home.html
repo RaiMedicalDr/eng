@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <title>let's ENG</title>
+  <link rel="stylesheet" href="style.css" />
+  <!-- iOS ホーム追加と全画面表示 -->
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="学習支援">
+
+<!-- iOSアイコン（例） -->
+<link rel="apple-touch-icon" href="/icons/icon-192.png">
+
+<!-- Android用Manifest -->
+<link rel="manifest" href="/manifest.json">
+<meta name="theme-color" content="#003366">
+</head>
+<style>
+  /* =====================
+  ベーススタイル
+===================== */
+body {
+  margin: 0;
+  padding: 0;
+  background-color: #fdf5e6;
+  font-family: "MS Gothic", "メイリオ", sans-serif;
+  font-size: 14px;
+  color: #333;
+}
+
+header {
+  background-color: #003366;
+  color: white;
+  padding: 10px;
+  text-align: center;
+  font-weight: bold;
+  font-size: 16px;
+}
+
+/* =====================
+  レイアウト
+===================== */
+.container {
+  display: flex;
+  max-width: 960px;
+  margin: 0 auto;
+  background-color: #fffef5;
+  min-height: calc(100vh - 80px);
+  border-left: 1px solid #aaa;
+  border-right: 1px solid #aaa;
+}
+
+/* =====================
+  左ナビゲーション
+===================== */
+nav {
+  width: 200px;
+  background-color: #e0e0d0;
+  border-right: 1px solid #999;
+  padding: 10px;
+  box-sizing: border-box;
+}
+
+nav a {
+  display: block;
+  padding: 8px;
+  margin-bottom: 5px;
+  text-decoration: none;
+  background-color: #dcdcdc;
+  border: 1px solid #999;
+  color: #000;
+}
+
+nav a:hover {
+  background-color: #c0c0c0;
+}
+
+/* =====================
+  メインエリア
+===================== */
+main {
+  flex: 1;
+  padding: 20px;
+  background-color: #fffef5;
+  box-sizing: border-box;
+}
+
+.box {
+  background-color: #fff;
+  border: 1px solid #999;
+  padding: 15px;
+  margin-bottom: 20px;
+  box-shadow: 2px 2px 0 #ccc;
+}
+
+/* 見出し */
+h2 {
+  font-size: 16px;
+  border-bottom: 1px solid #999;
+  padding-bottom: 5px;
+  margin-bottom: 10px;
+  font-weight: bold;
+}
+
+/* ボタン */
+button {
+  padding: 5px 15px;
+  border: 2px outset #999;
+  background-color: #f0f0f0;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #ddd;
+}
+
+/* テーブル */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 10px;
+}
+
+th, td {
+  border: 1px solid #999;
+  padding: 8px;
+  text-align: left;
+  background-color: #fff;
+}
+
+th {
+  background-color: #e8e8e8;
+}
+
+/* フッター */
+footer {
+  text-align: center;
+  font-size: 12px;
+  color: #666;
+  padding: 15px;
+  border-top: 1px solid #aaa;
+  background-color: #f2f2f2;
+}
+
+.calendar-box {
+  margin-top: 20px;
+  font-size: 12px;
+}
+
+.calendar-table {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: #fffef5;
+  border: 1px solid #aaa;
+  margin-top: 5px;
+}
+
+.calendar-table th,
+.calendar-table td {
+  border: 1px solid #ccc;
+  text-align: center;
+  padding: 3px;
+  background-color: #ffffff;
+  font-family: "MS Gothic", sans-serif;
+}
+
+.clock-box {
+  margin-top: 20px;
+  text-align: center;
+}
+
+.clock-display {
+  background-color: #000;
+  color: #0f0;
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 16px;
+  padding: 8px;
+  border: 2px inset #333;
+  width: 100px;
+  margin: 0 auto;
+}
+
+.news-ticker {
+  width: 100%;
+  background-color: #fffacd; /* 薄い黄色 */
+  overflow: hidden;
+  border-bottom: 1px solid #999;
+  font-family: "MS Gothic", "メイリオ", sans-serif;
+}
+
+.ticker-text {
+  display: inline-block;
+  white-space: nowrap;
+  padding-left: 100%;
+  animation: ticker-scroll 15s linear infinite;
+  font-size: 14px;
+  color: #000;
+  padding: 8px 0;
+}
+
+@keyframes ticker-scroll {
+  0% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}
+
+/*文字*/
+/* iPhoneなど小画面対応 */
+@media (max-width: 768px) {
+  header {
+    font-size: 14px;
+    padding: 8px;
+  }
+
+  .container {
+    flex-direction: column;
+    max-width: 100%;
+  }
+
+  nav {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    padding: 5px;
+    background-color: #e0e0d0;
+  }
+
+  nav a {
+    flex: 1 1 45%;
+    margin: 5px;
+    font-size: 14px;
+    text-align: center;
+  }
+
+  main {
+    padding: 15px;
+  }
+
+  .box {
+    font-size: 14px;
+    padding: 10px;
+  }
+
+  .clock-display {
+    font-size: 14px;
+    width: 80px;
+    padding: 5px;
+  }
+
+  .calendar-table th,
+  .calendar-table td {
+    font-size: 10px;
+    padding: 2px;
+  }
+}
+</style>
+<body>
+
+  <header class="speakable">ダッシュボード</header>
+  <div class="news-ticker">
+  <div class="ticker-text">📢 今週は英検があります。早めの準備をしましょう！📚 単語ページで復習ができます ✨</div>
+</div>
+  <div class="container">
+
+    <nav>
+      <a class="speakable" href="home.html">ホーム</a>
+      <a class="speakable" href="tyuu1.html">中学一年</a>
+      <a class="speakable" href="tyuu2.html">中学二年</a>
+      <a class="speakable" href="tyuu3.html">中学三年</a>
+      <a class="speakable" href="kotae.html">英語答え</a>
+      <a class="speakable" href="otoiawase.html">お問い合わせ</a>
+      <a class="speakable" href="#">利用規約</a>
+      <a class="speakable" href="#">プライバシーポリシー</a>
+      <a class="speakable" href="index.html">ログアウト</a>
+      <button onclick="startReading()">🔊 全文読み上げモード</button>
+      
+
+      <hr>
+
+<div class="calendar-box">
+  <h3 style="text-align:center;">📅 5月</h3>
+  <table class="calendar-table">
+    <tr><th>日</th><th>月</th><th>火</th><th>水</th><th>木</th><th>金</th><th>土</th></tr>
+    <tr><td></td><td></td><td></td><td>1</td><td>2</td><td>3</td><td>4</td></tr>
+    <tr><td>5</td><td>6</td><td>7</td><td>8</td><td>9</td><td>10</td><td>11</td></tr>
+    <tr><td>12</td><td>13</td><td>14</td><td>15</td><td>16</td><td>17</td><td>18</td></tr>
+    <tr><td>19</td><td>20</td><td>21</td><td>22</td><td>23</td><td>24</td><td>25</td></tr>
+    <tr><td>26</td><td>27</td><td>28</td><td>29</td><td>30</td><td>31</td><td></td></tr>
+  </table>
+</div>
+
+
+
+<hr>
+
+<div class="clock-box">
+  <h3 class="speakable" style="text-align:center;">⏰ 時計</h3>
+  <div class="clock-display" id="clock">--:--</div>
+
+
+
+
+  
+</div>
+
+    </nav>
+
+    <main>
+      <div class="box">
+        <h2 class="speakable" >お知らせ</h2>
+        <p class="speakable" >新たに単語機能の提供を開始しました。</p>
+        <a class="speakable" href="tangosuuzi.html"><button>単語ページ</button></a>
+      </div>
+
+      <div class="box">
+        <h2 class="speakable">学力確認テストのお知らせ</h2>
+        <p class="speakable" >テストの結果が出ました。再度受ける場合は以下からアクセスしてください。</p>
+        <a href="https://docs.google.com/forms/d/e/1FAIpQLScJqYBvxLZU1-XvgS5UD7fCKj5M6IRN8_kOImVSvukjU8r9Fw/viewform?usp=dialog">
+          <button class="speakable" >再度テストを受ける</button>
+        </a>
+        <a class="speakable"href="goukaku.html"><button>結果を見る</button></a>
+        <a class="speakable"href="test1.html"><button>過去の回答</button></a>
+      </div>
+
+      <div class="box">
+        <h2 class="speakable">今月の目標（5月）</h2>
+        <p class="speakable">英語の単語はバッチリ⭐️英文を身につけよう！メンタルケアサポート管理部より。</p>
+        <p class="speakable">今週中に英語のテストを受けましょう。学力確認テスト2025/を追加予定です。</p>
+        <p class="speakable">📢 5/1 英検をしましょう。</p>
+      </div>
+
+      <div class="box">
+        <h2 class="speakable">中学1年 学習進捗</h2>
+        <p class="speakable">進捗：32%</p>
+        <div class="progress-bar">
+          <div class="progress-bar-fill" style="width: 32%;"></div>
+        </div>
+      </div>
+
+      <div class="box">
+        <h2 class="speakable">中学2年 学習進捗</h2>
+        <p class="speakable">進捗：0%</p>
+        <div class="progress-bar">
+          <div class="progress-bar-fill" style="width: 0%;"></div>
+        </div>
+      </div>
+
+      <div class="box">
+        <h2 class="speakable">中学3年 学習進捗</h2>
+        <p class="speakable">進捗：0%</p>
+        <div class="progress-bar">
+          <div class="progress-bar-fill" style="width: 0%;"></div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <footer>&copy; 2025 ヒコネズミテクノロジーズ</footer>
+</body>
+
+
+
+<script>
+function updateClock() {
+  const now = new Date();
+  const hours = String(now.getHours()).padStart(2, '0');
+  const minutes = String(now.getMinutes()).padStart(2, '0');
+  document.getElementById('clock').textContent = `${hours}:${minutes}`;
+}
+
+// 初期表示と毎分更新
+updateClock();
+setInterval(updateClock, 60000);
+
+
+
+
+
+
+
+function startReading() {
+  const elements = document.querySelectorAll(".speakable");
+  let index = 0;
+
+  function readNext() {
+    if (index >= elements.length) return;
+
+    const el = elements[index];
+    const text = el.textContent.trim();
+    if (text) {
+      // 視覚補助
+      elements.forEach(e => e.style.backgroundColor = "");
+      el.style.backgroundColor = "#ffffcc";
+
+      // 読み上げ設定
+      const utterance = new SpeechSynthesisUtterance(text);
+      utterance.lang = "ja-JP";
+      utterance.rate = 0.9;
+      utterance.onend = () => {
+        index++;
+        setTimeout(readNext, 800);
+      };
+
+      window.speechSynthesis.speak(utterance);
+    } else {
+      index++;
+      readNext();
+    }
+  }
+
+  window.speechSynthesis.cancel();
+  readNext();
+}
+
+
+
+</script>
+</html>
+

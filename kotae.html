@@ -1,0 +1,629 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+
+    <!-- iOS用: 全画面表示 -->
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="Let’s ENG">
+
+<!-- アイコン（iOSのホーム画面に表示される） -->
+<link rel="apple-touch-icon" href="Let’s ENG.png">
+
+<!-- 通常のPWA設定（Android等も対応） -->
+<link rel="manifest" href="/manifest.json">
+<meta name="theme-color" content="#ffffff">
+
+
+
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>答え</title>
+  <link 
+    rel="stylesheet" 
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" 
+    integrity="sha512-y3u+xUo6XZCMxA2wr8eT1D5ZMkUd8XkZaQe3PQ3FIkFt+RPq5O58FqFj5W0bK6ydgOER3DRLMLVJ0Wwb5R6TMA==" 
+    crossorigin="anonymous" referrerpolicy="no-referrer"
+  />
+  <style>
+
+    
+    * {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  display: flex;
+  font-family: 'Helvetica Neue', sans-serif;
+  background: #f4f4f4;
+  height: 100vh;
+  overflow: hidden;
+}
+
+/* ===== サイドバー全体 ===== */
+.sidebar {
+  width: 220px;
+  background-color: #1e1e2f;
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  transition: none; /* ← アニメーション無効 */
+}
+
+.sidebar.collapsed {
+  width: 60px;
+}
+
+/* ===== ロゴ表示エリア ===== */
+.logo {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+}
+
+.logo-icon {
+  display: none;
+  font-size: 1.5rem;
+}
+
+.logo-text {
+  white-space: nowrap;
+}
+
+.logohiko {
+    width: 50px;
+}
+
+.sidebar.collapsed .logo-text {
+  display: none;
+}
+
+.sidebar.collapsed .logo-icon {
+  display: inline-block;
+  margin: 0 auto;
+}
+
+/* ===== ナビゲーションメニュー ===== */
+.sidebar nav {
+  display: flex;
+  flex-direction: column;
+  padding: 1rem;
+  gap: 0.5rem;
+  align-items: flex-start;
+}
+
+.sidebar.collapsed nav {
+  align-items: center;
+}
+
+.menu-item {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  color: #c5c5d2;
+  padding: 0.75rem;
+  border-radius: 6px;
+  cursor: pointer;
+  text-decoration: none;
+  transition: none;
+}
+
+.menu-item:hover {
+  background-color: #2c2c3e;
+  color: #fff;
+}
+
+.menu-item i {
+  min-width: 20px;
+  text-align: center;
+  margin-right: 1rem;
+}
+
+.sidebar.collapsed .menu-item span {
+  display: none;
+}
+
+/* ===== サブメニュー（アコーディオン） ===== */
+.submenu {
+  display: none;
+  flex-direction: column;
+  margin-left: 2rem;
+}
+
+.submenu a {
+  color: #b5b5c5;
+  padding: 0.5rem 0;
+  text-decoration: none;
+  font-size: 0.9rem;
+}
+
+.submenu a:hover {
+  color: #fff;
+}
+
+.submenu.active {
+  display: flex;
+}
+
+.sidebar.collapsed .submenu {
+  margin-left: 0;
+  align-items: center;
+}
+
+/* ===== 折りたたみボタン ===== */
+.toggle-btn {
+  position: absolute;
+  top: 1rem;
+  right: -40px;
+  background-color: #1e1e2f;
+  color: #fff;
+  border: 2px solid #fff;
+  border-radius: 5%;
+  width: 30px;
+  height: 30px;
+  font-size: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 10;
+}
+
+/* ===== メインコンテンツエリア ===== */
+.main-content {
+  flex: 1;
+  padding: 2rem;
+  margin-left: 220px;
+  transition: none;
+}
+
+.sidebar.collapsed ~ .main-content {
+  margin-left: 60px;
+}
+
+/* ===== その他スタイル ===== */
+h2 {
+  margin-bottom: 1rem;
+}
+
+.card {
+  background: #fff;
+  padding: 1.5rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  margin-bottom: 2rem;
+}
+
+footer {
+  text-align: center;
+  margin-top: 2rem;
+  color: #777;
+  font-size: 0.9rem;
+}
+
+/* ロゴ全体 */
+.logo {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+}
+
+/* ロゴ画像 */
+.logohiko-square {
+  width: 40px;
+  height: 40px;
+  object-fit: cover;
+  border-radius: 4px; /* 正方形で角丸少し */
+}
+
+.logohiko-wide {
+  height: 40px;
+  object-fit: contain;
+}
+
+/* ロゴ表示制御 */
+.logo-icon {
+  display: none;
+}
+
+.logo-text {
+  display: inline-block;
+  
+}
+
+.sidebar.collapsed .logo-text {
+  display: none;
+}
+
+.sidebar.collapsed .logo-icon {
+  display: inline-block;
+}
+
+/* ロゴ配置（展開時だけ左寄せ） */
+.sidebar:not(.collapsed) .logo {
+  justify-content: flex-start;
+  padding-left: 3.0rem;
+}
+
+/* メニュー配置（展開時だけ左寄せ） */
+.sidebar:not(.collapsed) nav {
+  align-items: flex-start;
+  padding-left: -0rem;
+}
+
+/* 全体のレイアウトとデザイン */
+.main-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+  font-family: 'Arial', sans-serif;
+}
+
+/* タイトルスタイル */
+.main-content h2 {
+  text-align: center;
+  color: #2c3e50;
+  border-bottom: 3px solid #3498db;
+  padding-bottom: 10px;
+  margin-bottom: 30px;
+}
+
+/* コースグリッドレイアウト */
+.course-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 20px;
+}
+
+/* コースカードのスタイル */
+.course-card {
+  background-color: #f9f9f9;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  transition: transform 0.3s ease;
+}
+
+.course-card:hover {
+  transform: translateY(-5px);
+}
+
+.course-card h3 {
+  color: #2980b9;
+  border-bottom: 2px solid #3498db;
+  padding-bottom: 10px;
+  margin-bottom: 15px;
+}
+
+/* ユニットリストのスタイル */
+.unit-list {
+  list-style-type: none;
+  padding: 0;
+}
+
+.unit-list li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  border-bottom: 1px solid #ecf0f1;
+}
+
+.unit-list li:last-child {
+  border-bottom: none;
+}
+
+/* ボタンのスタイル */
+.btn {
+  background-color: #3498db;
+  color: white;
+  border: none;
+  padding: 8px 15px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.btn:hover {
+  background-color: #2980b9;
+}
+
+/* モーダルのスタイル */
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 1000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.modal-content {
+  background-color: white;
+  margin: 10% auto;
+  padding: 30px;
+  border-radius: 10px;
+  max-width: 600px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  position: relative;
+}
+
+.close-btn {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  color: #aaa;
+  font-size: 28px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+.close-btn:hover {
+  color: #333;
+}
+
+/* レスポンシブ対応 */
+@media screen and (max-width: 768px) {
+  .course-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  </style>
+</head>
+<body>
+
+  <!-- サイドバー -->
+<aside class="sidebar" id="sidebar">
+    <div class="toggle-btn" id="toggleBtn">
+      <i class="fas fa-angle-left"></i>
+    </div>
+    
+
+    <!-- ロゴ部分 -->
+  <h1 class="logo"> <a href="home.html" >
+    <!-- 収縮時に表示される正方形ロゴ -->
+    <span class="logo-icon">
+      <img class="logohiko-square" src="logo.JPG" >
+    </span>
+  
+    <!-- 展開時に表示される横長ロゴ -->
+    <span class="logo-text">
+      <img class="logohiko-wide" src="logo.JPG" >
+    </span>
+
+  </a>
+  </h1>
+  
+  <nav>
+    <!-- 以下省略 -->
+    <div class="menu-item" onclick="toggleSubmenu('work')">
+      <i class="fas fa-chart-line"></i><span>英語↓</span>
+    </div>
+    <div class="submenu" id="submenu-work">
+      <a href="tyuu1.html">中学一年</a>
+      <a href="tyuu2.html">中学二年</a>
+      <a href="tyuu3.html">中学三年</a>
+    </div>
+
+    <div class="menu-item" onclick="toggleSubmenu('service')">
+      <i class="fas fa-users"></i><span>サービス↓</span>
+    </div>
+    <div class="submenu" id="submenu-service">
+      <a href="kotae.html">英語答え</a>
+    </div>
+
+    <div class="menu-item" onclick="toggleSubmenu('team')">
+      <i class="fas fa-cogs"></i><span>チーム↓</span>
+    </div>
+    <div class="submenu" id="submenu-team">
+      <a href="#">開発メンバー</a>
+    </div>
+
+    <div class="menu-item" onclick="toggleSubmenu('contact')">
+      <i class="fas fa-envelope"></i><span>お問い合わせ↓</span>
+    </div>
+    <div class="submenu" id="submenu-contact">
+      <a href="otoiawase.html">フォーム1</a>
+    </div>
+
+    <div class="menu-item" onclick="toggleSubmenu('other')">
+      <i class="fas fa-folder"></i><span>その他↓</span>
+    </div>
+    <div class="submenu" id="submenu-other">
+      <a href="#">利用規約</a>
+      <a href="#">プライバシーポリシー</a>
+    </div>
+  </nav>
+  </aside>
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <!-- メインコンテンツ -->
+<main class="main-content">
+  <h2>英語解答ページ</h2>
+  
+  <div class="course-grid">
+    <div class="course-card">
+      <h3>中学一年 解答</h3>
+      <ul class="unit-list">
+        <li>
+          <span>be動詞問題集</span>
+          <button class="btn" onclick="showAnswer('be-verb-1')">解答</button>
+        </li>
+        <li>
+          <span>一般動詞問題集</span>
+          <button class="btn" onclick="showAnswer('general-verb-1')">解答</button>
+        </li>
+        <li>
+          <span>現在進行形問題集</span>
+          <button class="btn" onclick="showAnswer('present-progressive-1')">解答</button>
+        </li>
+      </ul>
+    </div>
+
+    <div class="course-card">
+      <h3>中学二年 解答</h3>
+      <ul class="unit-list">
+        <li>
+          <span>過去形問題集</span>
+          <button class="btn" onclick="showAnswer('past-tense-2')">解答</button>
+        </li>
+        <li>
+          <span>現在完了形問題集</span>
+          <button class="btn" onclick="showAnswer('present-perfect-2')">解答</button>
+        </li>
+        <li>
+          <span>仮定法問題集</span>
+          <button class="btn" onclick="showAnswer('subjunctive-2')">解答</button>
+        </li>
+      </ul>
+    </div>
+
+    <div class="course-card">
+      <h3>中学三年 解答</h3>
+      <ul class="unit-list">
+        <li>
+          <span>関係代名詞問題集</span>
+          <button class="btn" onclick="showAnswer('relative-pronoun-3')">解答</button>
+        </li>
+        <li>
+          <span>仮定法応用問題集</span>
+          <button class="btn" onclick="showAnswer('advanced-subjunctive-3')">解答</button>
+        </li>
+        <li>
+          <span>分詞構文問題集</span>
+          <button class="btn" onclick="showAnswer('participle-construction-3')">解答</button>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- 解答表示エリア -->
+  <div id="answer-modal" class="modal">
+    <div class="modal-content">
+      <span class="close-btn" onclick="closeAnswer()">&times;</span>
+      <div id="answer-content"></div>
+    </div>
+  </div>
+</main>
+
+
+<script>
+// 解答データ（実際の解答を追加）
+const answers = {
+  'be-verb-1': `
+    <h4>be動詞問題集 解答</h4>
+    <p>1. I am a student. ✓</p>
+    <p>2. She is happy. ✓</p>
+    <p>3. They are from Japan. ✓</p>
+  `,
+  'general-verb-1': `
+    <h4>一般動詞問題集 解答</h4>
+    <p>1. I play tennis. ✓</p>
+    <p>2. She likes music. ✓</p>
+    <p>3. They study English. ✓</p>
+  `,
+  'present-progressive-1': `
+    <h4>現在進行形問題集 解答</h4>
+    <p>1. I am studying now. ✓</p>
+    <p>2. She is cooking dinner. ✓</p>
+    <p>3. They are playing soccer. ✓</p>
+  `,
+  // 他の学年の解答も同様に追加
+  'past-tense-2': `解答データ`,
+  'present-perfect-2': `解答データ`,
+  'subjunctive-2': `解答データ`,
+  'relative-pronoun-3': `解答データ`,
+  'advanced-subjunctive-3': `解答データ`,
+  'participle-construction-3': `解答データ`
+};
+
+function showAnswer(answerId) {
+  const modal = document.getElementById('answer-modal');
+  const answerContent = document.getElementById('answer-content');
+  
+  answerContent.innerHTML = answers[answerId] || '解答が見つかりません。';
+  modal.style.display = 'block';
+}
+
+function closeAnswer() {
+  const modal = document.getElementById('answer-modal');
+  modal.style.display = 'none';
+}
+
+// モーダル外をクリックで閉じる
+window.onclick = function(event) {
+  const modal = document.getElementById('answer-modal');
+  if (event.target == modal) {
+    modal.style.display = 'none';
+  }
+}
+
+
+// サイドバー関連のスクリプト（以前のコード同様）
+const toggleBtn = document.getElementById('toggleBtn');
+    const sidebar = document.getElementById('sidebar');
+    const icon = toggleBtn.querySelector('i');
+
+    toggleBtn.addEventListener('click', () => {
+      sidebar.classList.toggle('collapsed');
+      icon.classList.toggle('fa-angle-left');
+      icon.classList.toggle('fa-angle-right');
+    });
+
+    function toggleSubmenu(id) {
+      const submenu = document.getElementById(`submenu-${id}`);
+      submenu.classList.toggle('active');
+    }
+
+    
+</script>
+
+
+
+
+</body>
+</html>

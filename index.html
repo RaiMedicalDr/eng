@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <!-- iOS用: 全画面表示 -->
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="Let’s ENG">
+
+<!-- アイコン（iOSのホーム画面に表示される） -->
+<link rel="apple-touch-icon" href="Let’s ENG.png">
+
+<!-- 通常のPWA設定（Android等も対応） -->
+<link rel="manifest" href="/manifest.json">
+<meta name="theme-color" content="#ffffff">
+
+
+  <meta charset="UTF-8">
+  <title>ログインページ</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: "Segoe UI", sans-serif;
+      background: linear-gradient(to bottom right, #005f99, #007acc);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      color: white;
+    }
+
+    .login-container {
+      background-color: white;
+      padding: 40px;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+      width: 300px;
+      color: #003366;
+    }
+
+    .login-container h2 {
+      text-align: center;
+      margin-bottom: 24px;
+      font-size: 24px;
+      color: #005f99;
+    }
+
+    .login-container input[type="text"],
+    .login-container input[type="password"] {
+      width: 100%;
+      padding: 10px;
+      margin: 10px 0 20px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+    }
+
+    .login-container button {
+      width: 100%;
+      padding: 10px;
+      border: none;
+      border-radius: 6px;
+      background-color: #005f99;
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    .login-container button:hover {
+      background-color: #004777;
+    }
+
+    .link-buttons {
+      margin-top: 20px;
+      display: flex;
+      justify-content: center;
+    }
+
+    .link-buttons a {
+      text-decoration: none;
+      color: #005f99;
+      font-weight: bold;
+    }
+
+    .link-buttons a:hover {
+      text-decoration: underline;
+    }
+
+    .error-message {
+      color: red;
+      text-align: center;
+      margin-top: 10px;
+    }
+  </style>
+</head>
+<body>
+  <div class="login-container">
+    <h2>ログイン</h2>
+    <form id="login-form">
+      <input type="text" id="username" placeholder="ユーザー名" required>
+      <input type="password" id="password" placeholder="パスワード" required>
+      <button type="submit">ログイン</button>
+    </form>
+
+    <div id="error-message" class="error-message"></div>
+
+    <div class="link-buttons">
+      <a href="admin.html">管理者用ページ</a>
+    </div>
+  </div>
+
+  <script>
+    document.getElementById("login-form").addEventListener("submit", function(e) {
+      e.preventDefault();
+
+      const username = document.getElementById("username").value;
+      const password = document.getElementById("password").value;
+
+      if (username === "tommy_0829" && password === "19440829") {
+        alert("ようこそ、トミーさん！");
+        window.location.href = "home.html";
+      } else {
+        document.getElementById("error-message").textContent = "ユーザー名またはパスワードが違います。";
+      }
+    });
+  </script>
+</body>
+</html>

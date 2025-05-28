@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>中学一年 英語学習</title>
+
+  <!-- iOS用: 全画面表示 -->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="apple-mobile-web-app-title" content="Let’s ENG">
+  <link rel="apple-touch-icon" href="Let’s ENG.png">
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#003366">
+
+  <style>
+    body {
+      margin: 0;
+      font-family: "MS Gothic", "メイリオ", sans-serif;
+      background-color: #fdf5e6;
+      display: flex;
+      min-height: 100vh;
+      color: #333;
+    }
+    .sidebar {
+      width: 200px;
+      background-color: #e0e0d0;
+      padding: 1rem;
+      border-right: 1px solid #999;
+    }
+    .logo {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+    .logo img {
+      width: 100px;
+    }
+    nav a {
+      display: block;
+      color: #000;
+      text-decoration: none;
+      background-color: #dcdcdc;
+      border: 1px solid #999;
+      padding: 8px;
+      margin-bottom: 5px;
+    }
+    nav a:hover {
+      background-color: #c0c0c0;
+    }
+    .main-content {
+      flex: 1;
+      padding: 2rem;
+      background-color: #fffef5;
+    }
+    h2 {
+      margin-bottom: 1rem;
+      font-size: 16px;
+      border-bottom: 1px solid #999;
+      padding-bottom: 5px;
+    }
+    .card {
+      background-color: #fff;
+      border: 1px solid #999;
+      padding: 15px;
+      margin-bottom: 20px;
+      box-shadow: 2px 2px 0 #ccc;
+    }
+    .btn1 {
+      display: inline-block;
+      margin-top: 0.5rem;
+      padding: 6px 10px;
+      background: #c0c0c0;
+      color: #000;
+      text-decoration: none;
+      border: 1px solid #666;
+    }
+    .progress-bar {
+      width: 100%;
+      background-color: #e0e0e0;
+      border: 1px solid #999;
+      height: 20px;
+      margin-bottom: 10px;
+    }
+    .progress-bar-fill {
+      display: block;
+      height: 100%;
+      width: 32%;
+      background-color: #9acd32;
+    }
+    .course-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 15px;
+    }
+    .course-card {
+      background-color: #fff;
+      border: 1px solid #999;
+      padding: 15px;
+      box-shadow: 2px 2px 0 #ccc;
+    }
+    .course-card h3 {
+      font-size: 14px;
+      border-bottom: 1px solid #999;
+      margin-bottom: 10px;
+      padding-bottom: 4px;
+    }
+    .unit-list {
+      list-style: none;
+      padding: 0;
+    }
+    .unit-list li {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 8px;
+    }
+    .btn {
+      background-color: #c0c0c0;
+      color: #000;
+      padding: 4px 8px;
+      text-decoration: none;
+      border: 1px solid #666;
+    }
+    footer {
+      text-align: center;
+      margin-top: 2rem;
+      font-size: 12px;
+      color: #666;
+      border-top: 1px solid #aaa;
+      padding-top: 10px;
+    }
+  </style>
+</head>
+<body>
+  <aside class="sidebar">
+    <div class="logo">
+      <img src="Let’s ENG.png" alt="Logo">
+    </div>
+    <nav>
+      <a href="home.html">ホーム</a>
+      <a href="tyuu1.html">中学一年</a>
+      <a href="tyuu2.html">中学二年</a>
+      <a href="tyuu3.html">中学三年</a>
+      <a href="kotae.html">英語答え</a>
+      <a href="otoiawase.html">お問い合わせ</a>
+    </nav>
+  </aside>
+
+  <main class="main-content">
+    <h2>中学一年 英語学習</h2>
+
+    <div class="card">
+      <h3>お知らせ</h3>
+      <p>学力確認テスト2025/テスト結果</p>
+      <a class="btn1" href="https://docs.google.com/forms/d/e/1FAIpQLScJqYBvxLZU1-XvgS5UD7fCKj5M6IRN8_kOImVSvukjU8r9Fw/viewform?usp=dialog">再度テストを受ける</a>
+      <a class="btn1" href="goukaku.html">結果</a>
+      <a class="btn1" href="test1.html">過去の回答</a>
+    </div>
+
+    <div class="card">
+      <h3>総合進捗</h3>
+      <div class="progress-bar">
+        <span class="progress-bar-fill"></span>
+      </div>
+      <p>現在の進捗: 32% (4/38単元)</p>
+    </div>
+
+    <div class="course-grid">
+      <div class="course-card">
+        <h3>基本文法</h3>
+        <ul class="unit-list">
+          <li><span>be動詞</span><a class="btn" href="bedousi.html">学習</a></li>
+          <li><span>一般動詞</span><a class="btn" href="#">学習</a></li>
+          <li><span>現在進行形</span><a class="btn" href="shinkou.html">学習</a></li>
+          <li><span>未来 Can~</span><a class="btn" href="mirai.html">再度学習</a></li>
+        </ul>
+      </div>
+
+      <div class="course-card">
+        <h3>◇新機能◇</h3>
+        <ul class="unit-list">
+          <li><span>日常単語</span><a class="btn" href="tanngonitizyou.html">学習</a></li>
+          <li><span>日常単語テスト</span><a class="btn" href="tangotest.html">テスト</a></li>
+          <li><span>日常行動</span><a class="btn" href="tangokoudou.html">学習</a></li>
+          <li><span>数字と曜日</span><a class="btn" href="tangosuuzi.html">学習</a></li>
+        </ul>
+      </div>
+
+      <div class="course-card">
+        <h3>リスニング</h3>
+        <ul class="unit-list">
+          <li><span>アルファベット発音</span><a class="btn" href="#">練習</a></li>
+          <li><span>単語発音</span><a class="btn" href="#">練習</a></li>
+          <li><span>会話シミュレーション</span><a class="btn" href="#">練習</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>最近の学習記録</h3>
+      <p>最終学習日: 2024/02/15</p>
+      <p>今月の学習時間: 8時間45分</p>
+    </div>
+
+    <footer>
+      &copy; 2025 ヒコネズミテクノロジーズ
+    </footer>
+  </main>
+</body>
+</html>

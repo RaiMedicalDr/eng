@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>管理者ページ - 進捗管理</title>
+
+  <!-- ★ パスワードチェック：ページ読み込み前に実行！ -->
+  <script>
+    const password = prompt("パスワードを入力してください");
+    if (password !== "Admin") {
+      alert("アクセス拒否されました");
+      document.write("権限がありません");
+      throw new Error("Unauthorized access");
+    }
+  </script>
+
+  <!-- スタイル -->
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 30px;
+      background: #f5f5f5;
+    }
+    h1 {
+      color: #2c3e50;
+      margin-bottom: 20px;
+    }
+    label {
+      font-weight: bold;
+      display: block;
+      margin-bottom: 10px;
+    }
+    input[type="range"] {
+      width: 300px;
+    }
+    .btn {
+      background: #3498db;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 16px;
+      margin-top: 20px;
+    }
+    .btn:hover {
+      background: #2980b9;
+    }
+  </style>
+</head>
+<body>
+  <h1>進捗バー編集（中学一年）</h1>
+
+  <label for="progressInput">進捗率（%）</label>
+  <input type="range" id="progressInput" min="0" max="100" value="45" />
+  <span id="progressValue">45%</span>
+
+  <br>
+  <button class="btn" onclick="saveProgress()">進捗を保存する</button>
+
+    <!-- 中学二年用 -->
+<h1>進捗バー編集（中学二年）</h1>
+<label for="progressInput2">進捗率（%）</label>
+<input type="range" id="progressInput2" min="0" max="100" value="62" />
+<span id="progressValue2">62%</span>
+
+<br>
+<button class="btn" onclick="saveProgress2()">保存</button>
+
+<!-- 中学三年用 -->
+<h1>進捗バー編集（中学三年）</h1>
+<label for="progressInput3">進捗率（%）</label>
+<input type="range" id="progressInput3" min="0" max="100" value="85" />
+<span id="progressValue3">85%</span>
+
+<br>
+<button class="btn" onclick="saveProgress3()">保存</button>
+
+
+
+
+  <h2>グラフデータ設定</h2>
+<label>文法</label>
+<input type="number" id="grammar" min="0" max="100" value="65"><br>
+<label>単語</label>
+<input type="number" id="vocab" min="0" max="100" value="45"><br>
+<label>リスニング</label>
+<input type="number" id="listening" min="0" max="100" value="80"><br>
+<label>読解</label>
+<input type="number" id="reading" min="0" max="100" value="55"><br><br>
+
+<button class="btn" onclick="saveGraph()">グラフ保存</button>
+
+
+<!-- 🔔 お知らせ編集フォーム -->
+<h2>お知らせ編集</h2>
+<label>重要なお知らせ</label>
+<input type="text" id="importantNoticeInput" placeholder="例：テストがあります！" style="width: 100%;"><br><br>
+
+<label>お知らせ</label>
+<input type="text" id="regularNoticeInput" placeholder="例：新教材を追加しました。" style="width: 100%;"><br><br>
+
+<!-- 🎯 テスト進捗入力（学年別） -->
+<h2>テスト進捗バー編集</h2>
+<label>中学一年 進捗率 (%)</label>
+<input type="number" id="tyuu1TestInput" min="0" max="100" value="0"><br><br>
+
+<label>中学二年 進捗率 (%)</label>
+<input type="number" id="tyuu2TestInput" min="0" max="100" value="0"><br><br>
+
+<label>中学三年 進捗率 (%)</label>
+<input type="number" id="tyuu3TestInput" min="0" max="100" value="0"><br><br>
+
+<button onclick="saveAdminSettings()" style="padding: 10px 20px; border-radius: 8px; background: #3498db; color: white; border: none; font-size: 16px;">保存</button>
+
+
+<script>
+  function saveGraph() {
+    const data = {
+      grammar: Number(document.getElementById("grammar").value),
+      vocab: Number(document.getElementById("vocab").value),
+      listening: Number(document.getElementById("listening").value),
+      reading: Number(document.getElementById("reading").value)
+    };
+    localStorage.setItem("chartData", JSON.stringify(data));
+    alert("グラフデータを保存しました！");
+  }
+  </script>
+
+
+  <script>
+    // スライダーの表示更新
+    const input = document.getElementById("progressInput");
+    const value = document.getElementById("progressValue");
+
+    input.addEventListener("input", () => {
+      value.textContent = `${input.value}%`;
+    });
+
+    // 保存ボタン押下時の処理
+    function saveProgress() {
+      const progress = input.value;
+      localStorage.setItem("tyuu1_progress", progress);
+      alert("保存しました！");
+    }
+
+  </script>
+
+
+
+<script>
+  const input2 = document.getElementById("progressInput2");
+  const value2 = document.getElementById("progressValue2");
+
+  input2.addEventListener("input", () => {
+    value2.textContent = `${input2.value}%`;
+  });
+
+  function saveProgress2() {
+    const progress2 = input2.value;
+    localStorage.setItem("tyuu2_progress", progress2);
+    alert("保存しました！（中学二年）");
+  }
+</script>
+
+
+
+<script>
+  const input3 = document.getElementById("progressInput3");
+  const value3 = document.getElementById("progressValue3");
+
+  input3.addEventListener("input", () => {
+    value3.textContent = `${input3.value}%`;
+  });
+
+  function saveProgress3() {
+    const progress3 = input3.value;
+    localStorage.setItem("tyuu3_progress", progress3);
+    alert("保存しました！（中学三年）");
+  }
+</script>
+
+<script>
+  function saveAdminSettings() {
+    // 🔔 お知らせの保存
+    const important = document.getElementById("importantNoticeInput").value;
+    const notice = document.getElementById("regularNoticeInput").value;
+    localStorage.setItem("admin_notices", JSON.stringify({
+      important: important,
+      notice: notice
+    }));
+  
+    // 🎯 テスト進捗の保存
+    const tyuu1 = Number(document.getElementById("tyuu1TestInput").value);
+    const tyuu2 = Number(document.getElementById("tyuu2TestInput").value);
+    const tyuu3 = Number(document.getElementById("tyuu3TestInput").value);
+    localStorage.setItem("admin_tests", JSON.stringify({
+      tyuu1: tyuu1,
+      tyuu2: tyuu2,
+      tyuu3: tyuu3
+    }));
+  
+    alert("お知らせとテスト進捗を保存しました！");
+  }
+  </script>
+
+
+<!--google -->
+<script src="all.js" type="module"></script>
+
+
+</body>
+</html>

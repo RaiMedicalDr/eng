@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <title>英単語帳アプリ</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <link rel="manifest" href="manifest.json" />
+   <style>
+    body {
+      margin: 0;
+      padding: 2rem;
+      font-family: "MS Gothic", "メイリオ", sans-serif;
+      background-color: #fdf5e6;
+      color: #333;
+    }
+
+    h1 {
+      font-size: 20px;
+      text-align: center;
+      padding: 10px;
+      background-color: #003366;
+      color: white;
+      margin-bottom: 30px;
+      border: 2px solid #999;
+    }
+
+    .card {
+      background-color: #fff;
+      border: 1px solid #999;
+      padding: 15px;
+      margin: 15px auto;
+      border-radius: 6px;
+      max-width: 500px;
+      box-shadow: 2px 2px 0 #ccc;
+    }
+
+    .word {
+      font-size: 18px;
+      font-weight: bold;
+      color: #000;
+    }
+
+    .meaning {
+      font-size: 16px;
+      margin-top: 10px;
+      color: #444;
+      display: none;
+    }
+
+    button {
+      padding: 6px 15px;
+      font-size: 14px;
+      margin-top: 10px;
+      cursor: pointer;
+      border: 2px outset #999;
+      background-color: #e0e0d0;
+      color: #000;
+      transition: background-color 0.2s ease;
+    }
+
+    button:hover {
+      background-color: #c0c0c0;
+    }
+  </style>
+</head>
+<body>
+
+<h1>英単語帳</h1>
+<div id="wordList"></div>
+
+<script>
+  const words = [
+  { word: "house", meaning: "家" },
+{ word: "room", meaning: "部屋" },
+{ word: "door", meaning: "ドア" },
+{ word: "window", meaning: "窓" },
+{ word: "bed", meaning: "ベッド" },
+{ word: "chair", meaning: "椅子" },
+{ word: "table", meaning: "テーブル" },
+{ word: "light", meaning: "明かり" },
+{ word: "bag", meaning: "かばん" },
+{ word: "phone", meaning: "電話" },
+{ word: "book", meaning: "本" },
+{ word: "pen", meaning: "ペン" },
+{ word: "cup", meaning: "コップ" },
+{ word: "water", meaning: "水" },
+{ word: "food", meaning: "食べ物" },
+{ word: "rice", meaning: "ごはん" },
+{ word: "bread", meaning: "パン" },
+{ word: "milk", meaning: "牛乳" },
+{ word: "coffee", meaning: "コーヒー" },
+{ word: "tea", meaning: "お茶" },
+{ word: "toothbrush", meaning: "歯ブラシ" },
+{ word: "soap", meaning: "石けん" },
+{ word: "towel", meaning: "タオル" },
+{ word: "clock", meaning: "時計" },
+{ word: "key", meaning: "鍵" },
+{ word: "refrigerator", meaning: "冷蔵庫" },
+{ word: "microwave", meaning: "電子レンジ" },
+{ word: "television", meaning: "テレビ" },
+{ word: "remote", meaning: "リモコン" },
+{ word: "pillow", meaning: "枕" },
+{ word: "blanket", meaning: "毛布" },
+{ word: "mirror", meaning: "鏡" },
+{ word: "curtain", meaning: "カーテン" },
+{ word: "shoes", meaning: "靴" },
+{ word: "clothes", meaning: "服" },
+{ word: "wallet", meaning: "財布" },
+{ word: "umbrella", meaning: "傘" },
+{ word: "backpack", meaning: "リュック" },
+{ word: "refrigerator", meaning: "冷蔵庫" },
+{ word: "microwave", meaning: "電子レンジ" },
+{ word: "television", meaning: "テレビ" },
+{ word: "remote", meaning: "リモコン" },
+{ word: "pillow", meaning: "枕" },
+{ word: "blanket", meaning: "毛布" },
+{ word: "mirror", meaning: "鏡" },
+{ word: "curtain", meaning: "カーテン" },
+{ word: "shoes", meaning: "靴" },
+{ word: "clothes", meaning: "服" },
+{ word: "wallet", meaning: "財布" },
+{ word: "umbrella", meaning: "傘" },
+{ word: "backpack", meaning: "リュック" },
+{ word: "egg", meaning: "卵" },
+{ word: "meat", meaning: "肉" },
+{ word: "fish", meaning: "魚" },
+{ word: "fruit", meaning: "果物" },
+{ word: "apple", meaning: "りんご" },
+{ word: "banana", meaning: "バナナ" },
+{ word: "orange", meaning: "オレンジ" },
+{ word: "vegetable", meaning: "野菜" },
+{ word: "carrot", meaning: "にんじん" },
+{ word: "onion", meaning: "玉ねぎ" },
+{ word: "salad", meaning: "サラダ" },
+{ word: "juice", meaning: "ジュース" },
+{ word: "toilet", meaning: "トイレ" },
+{ word: "shampoo", meaning: "シャンプー" },
+{ word: "conditioner", meaning: "リンス・コンディショナー" },
+{ word: "toothpaste", meaning: "歯磨き粉" },
+{ word: "laundry", meaning: "洗濯物" },
+{ word: "broom", meaning: "ほうき" },
+{ word: "vacuum", meaning: "掃除機" },
+{ word: "trash", meaning: "ごみ" },
+{ word: "soap", meaning: "石けん" },
+{ word: "detergent", meaning: "洗剤" },
+
+
+
+
+
+
+  // 🔄 追加部分（ここから）
+  
+  // 🔄 追加部分（ここまで）
+];
+
+
+  const wordList = document.getElementById("wordList");
+
+  words.forEach((entry, index) => {
+    const card = document.createElement("div");
+    card.className = "card";
+
+    const wordEl = document.createElement("div");
+    wordEl.className = "word";
+    wordEl.textContent = entry.word;
+
+    const meaningEl = document.createElement("div");
+    meaningEl.className = "meaning";
+    meaningEl.textContent = entry.meaning;
+    meaningEl.id = `meaning-${index}`;
+
+    const btn = document.createElement("button");
+    btn.textContent = "みる";
+    btn.onclick = () => {
+      meaningEl.style.display = "block";
+      btn.style.display = "none";
+    };
+
+    card.appendChild(wordEl);
+    card.appendChild(meaningEl);
+    card.appendChild(btn);
+    wordList.appendChild(card);
+  });
+</script>
+
+</body>
+</html>
