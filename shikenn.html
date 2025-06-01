@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>試験監督タイマー</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      text-align: center;
+      margin-top: 50px;
+    }
+    #timer {
+      font-size: 48px;
+      margin-top: 20px;
+      color: #333;
+    }
+  </style>
+</head>
+<body>
+  <h1>試験監督タイマー</h1>
+  <p>読み上げ開始＆タイマー稼働中...</p>
+  <div id="timer">45:00</div>
+
+  <script>
+    // 読み上げ用テキスト
+    const message = `皆さん、試験が始まります。試験監督者は、時計を確認し、試験の進行と受験者の様子をしっかりと監視してください。 
+    不正行為のないよう、静かな環境を保ち、必要な注意喚起を適宜行ってください。試験時間は45分間です。
+    それでは、試験を開始してください。`;
+
+    // 音声読み上げ処理
+    function speak(text) {
+      const utterance = new SpeechSynthesisUtterance(text);
+      utterance.lang = 'ja-JP';
+      utterance.rate = 1;
+      speechSynthesis.speak(utterance);
+    }
+
+    // タイマー処理（45分＝2700秒）
+    let totalSeconds = 45 * 60;
+    const timerDisplay = document.getElementById('timer');
+
+    function updateTimer() {
+      const minutes = Math.floor(totalSeconds / 60);
+      const seconds = totalSeconds % 60;
+      timerDisplay.textContent = `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+
+      if (totalSeconds > 0) {
+        totalSeconds--;
+      } else {
+        clearInterval(timerInterval);
+        speak("試験時間が終了しました。答案を回収してください。");
+      }
+    }
+
+    // 実行開始
+    speak(message);
+    const timerInterval = setInterval(updateTimer, 1000);
+  </script>
+</body>
+</html>
