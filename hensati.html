@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>偏差値確認ページ</title>
+    <style>
+        body {
+            background-color: #fefefe;
+            color: black;
+            font-family: "MS PGothic", "Courier New", monospace;
+            padding: 20px;
+        }
+        h1 {
+            text-align: center;
+            color: blue;
+            text-decoration: underline;
+        }
+        .box {
+            border: 2px dotted gray;
+            padding: 20px;
+            width: 400px;
+            margin: 0 auto;
+            background-color: #f4f4f4;
+        }
+        input, button {
+            display: block;
+            margin: 10px auto;
+            font-size: 16px;
+            font-family: inherit;
+            padding: 5px;
+            width: 80%;
+        }
+        #result {
+            margin-top: 20px;
+            text-align: center;
+            font-size: 18px;
+            color: darkgreen;
+        }
+        .footer {
+            margin-top: 50px;
+            text-align: center;
+            font-size: 12px;
+            color: gray;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>★☆ 偏差値確認ページ ☆★</h1>
+
+    <div class="box">
+        <label for="username">あなたの名前またはIDを入力してください：</label>
+        <input type="text" id="username" placeholder="例: tanaka123">
+        <button onclick="checkHensachi()">▶ 偏差値を確認する</button>
+
+        <div id="result"></div>
+    </div>
+
+    <div class="footer">
+        ※ 本ページは成績確認用に作成されています（199X-Style）
+    </div>
+
+    <script>
+        // 仮のデータベース（名前またはID: 偏差値）
+        const hensachiData = {
+            "tommy0829": 43.1,
+            
+        };
+
+        function checkHensachi() {
+            const name = document.getElementById("username").value.trim().toLowerCase();
+            const resultDiv = document.getElementById("result");
+
+            if (name === "") {
+                resultDiv.style.color = "red";
+                resultDiv.textContent = "名前またはIDを入力してください。";
+                return;
+            }
+
+            if (hensachiData[name] !== undefined) {
+                resultDiv.style.color = "darkgreen";
+                resultDiv.innerHTML = `あなたの偏差値は <strong>${hensachiData[name]}</strong> です。`;
+            } else {
+                resultDiv.style.color = "red";
+                resultDiv.textContent = "該当するデータが見つかりませんでした。";
+            }
+        }
+    </script>
+
+</body>
+</html>
