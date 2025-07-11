@@ -165,8 +165,6 @@ footer {
   font-family: "MS Gothic", sans-serif;
 }
 
-
-
 .clock-box {
   margin-top: 20px;
   text-align: center;
@@ -265,22 +263,17 @@ footer {
   }
 }
 
-
 </style>
 <body>
 
-  <header class="speakable">Let's ENG ダッシュボード</header>
+  <header class="speakable">Let's ENG お知らせ</header>
   <div class="news-ticker">
-  <div class="ticker-text">📢 今週は英検があります。早めの準備をしましょう！📚 単語ページで復習ができます ✨ 　　　　　　　　　　学力診断テストを受けましょう！</div>
+  <div class="ticker-text">#000 /Script</div>
 </div>
   <div class="container">
 
     <nav>
-      <a class="speakable" href="home.html">ホーム</a>
-      <a class="speakable" href="tyuu1.html">中学一年</a>
-      <a class="speakable" href="tyuu2.html">中学二年</a>
-      <a class="speakable" href="tyuu3.html">中学三年</a>
-      <a class="speakable" href="kotae.html">英語答え</a>
+      <a class="speakable" href="home.html">ダッシュボードに戻る</a>
       <a class="speakable" href="otoiawase.html">お問い合わせ</a>
       <a class="speakable" href="#">利用規約</a>
       <a class="speakable" href="#">プライバシーポリシー</a>
@@ -293,16 +286,11 @@ footer {
 
 <div class="calendar-box"> <h3 style="text-align:center;">📅 2025年6月</h3> <table class="calendar-table"> <tr><th>日</th><th>月</th><th>火</th><th>水</th><th>木</th><th>金</th><th>土</th></tr> <tr><td class="weekend"></td><td>2</td><td>3</td><td>4</td><td>5</td><td>6</td><td class="weekend">7</td></tr> <tr><td class="weekend">8</td><td>9</td><td>10</td><td>11</td><td>12</td><td>13</td><td class="weekend">14</td></tr> <tr><td class="weekend">15</td><td>16</td><td>17</td><td>18</td><td>19</td><td>20</td><td class="weekend">21</td></tr> <tr><td class="weekend">22</td><td>23</td><td>24</td><td>25</td><td>26</td><td>27</td><td class="weekend">28</td></tr> <tr><td class="weekend">29</td><td>30</td><td></td><td></td><td></td><td></td><td></td></tr> </table> </div>
 
-
-
 <hr>
 
 <div class="clock-box">
   <h3 class="speakable" style="text-align:center;">⏰ 時計</h3>
   <div class="clock-display" id="clock">--:--</div>
-
-
-
 
   
 </div>
@@ -310,11 +298,13 @@ footer {
     </nav>
 
     <main>
-     <div class="box">
+     
+<div class="box">
         <h2 class="speakable">トミーさんにお知らせがあります。</h2>
         <p class="speakable" >確認事項を必ず受講してください。</p>
-　　　　　　 <a href="end.html">クリック</a>
+       <a href="end.html">クリック</a>
       </div>
+
 
       <div class="box">
         <h2 class="speakable">学力確認テストのお知らせ(偏差値） 受講済み</h2>
@@ -371,62 +361,4 @@ footer {
   <footer>&copy; 2025 ヒコネズミテクノロジーズ</footer>
 </body>
 
-
-
-<script>
-function updateClock() {
-  const now = new Date();
-  const hours = String(now.getHours()).padStart(2, '0');
-  const minutes = String(now.getMinutes()).padStart(2, '0');
-  document.getElementById('clock').textContent = `${hours}:${minutes}`;
-}
-
-// 初期表示と毎分更新
-updateClock();
-setInterval(updateClock, 60000);
-
-
-
-
-
-
-
-function startReading() {
-  const elements = document.querySelectorAll(".speakable");
-  let index = 0;
-
-  function readNext() {
-    if (index >= elements.length) return;
-
-    const el = elements[index];
-    const text = el.textContent.trim();
-    if (text) {
-      // 視覚補助
-      elements.forEach(e => e.style.backgroundColor = "");
-      el.style.backgroundColor = "#ffffcc";
-
-      // 読み上げ設定
-      const utterance = new SpeechSynthesisUtterance(text);
-      utterance.lang = "ja-JP";
-      utterance.rate = 0.9;
-      utterance.onend = () => {
-        index++;
-        setTimeout(readNext, 800);
-      };
-
-      window.speechSynthesis.speak(utterance);
-    } else {
-      index++;
-      readNext();
-    }
-  }
-
-  window.speechSynthesis.cancel();
-  readNext();
-}
-
-
-
-</script>
 </html>
-
